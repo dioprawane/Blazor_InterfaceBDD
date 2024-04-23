@@ -1,0 +1,39 @@
+@page "/select"
+@inject DataService DataService
+@using InterfaceBDD.Models;
+
+<h3>Dialogue</h3>
+
+@if (dialogues == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!dialogues.Any())
+{
+    <p>No dialogue found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var dialogue in dialogues)
+        {
+            <li>@dialogue.DGMacroDesignation</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Dialogue>? dialogues;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            dialogues = await DataService.GetAllDialoguesAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+}
