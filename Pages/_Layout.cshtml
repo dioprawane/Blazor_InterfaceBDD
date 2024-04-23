@@ -39,22 +39,15 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            Blazor.start({
-                reconnectOptions: {
-                    maxRetries: 5,
-                    retryIntervalMilliseconds: 2000
-                }
-            });
-
-            Blazor.reconnectionHandler.onConnectionDown = (options, error) => {
-                console.error('Connection lost, trying to reconnect...', error);
+        Blazor.start().then(function () {
+            Blazor.defaultReconnectionHandler._reconnectionDisplay.onConnectionDown = function (options, error) {
+                console.error('Connection lost due to error. Reconnecting...', options, error);
             };
-
-            Blazor.reconnectionHandler.onConnectionUp = (options) => {
+            Blazor.defaultReconnectionHandler._reconnectionDisplay.onConnectionUp = function () {
                 console.info('Connection reestablished');
             };
         });
     </script>
+
 </body>
 </html>

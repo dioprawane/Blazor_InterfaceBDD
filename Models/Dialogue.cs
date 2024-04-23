@@ -33,9 +33,9 @@ namespace InterfaceBDD.Models
         public decimal DGBudgetDG2Demande { get; set; }
         public decimal DGBudgetDG3Demande { get; set; }
         public decimal DGBudgetDG4Demande { get; set; }
-        public string DGPlanBudgBiJanvier { get; set; } = string.Empty;
-        public string DGPlanBudgBr1Juillet { get; set; } = string.Empty;
-        public string DGPlanBudgBr2Novembre { get; set; } = string.Empty;
+        public decimal DGPlanBudgBiJanvier { get; set; } = 0;
+        public decimal DGPlanBudgBr1Juillet { get; set; } = 0;
+        public decimal DGPlanBudgBr2Novembre { get; set; } = 0;
         public string DGNumeroAB { get; set; } = string.Empty;
         public string DGNumeroDB { get; set; } = string.Empty;
         public decimal DGBIAutorise { get; set; }
@@ -48,10 +48,10 @@ namespace InterfaceBDD.Models
         public decimal DGNEngagement { get; set; }
         public decimal DGMontantEngage { get; set; }
         public decimal DGRealise { get; set; }
-        public decimal DGGA486AnneeN1 { get; set; }
-        public decimal DGGA486AnneeN2 { get; set; }
-        public decimal DGGA486AnneeN3 { get; set; }
-        public decimal DGGA486AnneeN4 { get; set; }
+        public string DGGA486AnneeN1 { get; set; } = string.Empty;
+        public string DGGA486AnneeN2 { get; set; } = string.Empty;
+        public string DGGA486AnneeN3 { get; set; } = string.Empty;
+        public string DGGA486AnneeN4 { get; set; } = string.Empty;
         public decimal DGBudgPrevN1 { get; set; }
         public decimal DGBudgPrevN2 { get; set; }
         public decimal DGBudgPrevN3 { get; set; }

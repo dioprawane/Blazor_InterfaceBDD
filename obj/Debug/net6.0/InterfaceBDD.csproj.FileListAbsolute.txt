@@ -45,3 +45,4 @@ C:\Users\ac75008612\OneDrive - RECOUV\VsCode\FrontBDD\InterfaceBDD\bin\Debug\net
 C:\Users\ac75008612\OneDrive - RECOUV\VsCode\FrontBDD\InterfaceBDD\bin\Debug\net6.0\MySqlConnector.dll
 C:\Users\ac75008612\OneDrive - RECOUV\VsCode\FrontBDD\InterfaceBDD\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
 C:\Users\ac75008612\OneDrive - RECOUV\VsCode\FrontBDD\InterfaceBDD\obj\Debug\net6.0\Interfac.AAA1F678.Up2Date
+C:\Users\ac75008612\OneDrive - RECOUV\VsCode\FrontBDD\InterfaceBDD\obj\Debug\net6.0\InterfaceBDD.sourcelink.json
