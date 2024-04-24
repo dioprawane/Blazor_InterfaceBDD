@@ -9,18 +9,19 @@
 <h3>Table DIALOGUE de la Base de données dialogue_gestion :</h3>
 
 <div>
-    <h4>Sélectionnez les champs à afficher :</h4>
-    @foreach (var field in availableFields)
+    <h4>Colonnes à afficher :</h4>
+    @foreach (var column in columnVisibility.Keys)
     {
-        <input type="checkbox" @bind="selectedFields[field]">@field<br />
+        <input type="checkbox" @bind="columnVisibility[column]" @bind:event="oninput" />
+        @column<br />
     }
 </div>
 
-@if (dialogues == null)
+@if (dialogues == null || !columnVisibility.Any())
 {
     <p><em>Loading...</em></p>
 }
-else if (dialogues == null || !dialogues.Any())
+else if (!dialogues.Any())
 {
     <p>No dialogue found.</p>
 }
@@ -30,9 +31,12 @@ else
         <table class="table">
             <thead>
                 <tr>
-                @foreach (var field in availableFields.Where(f => selectedFields[f]))
+                @foreach (var column in columnVisibility)
                 {
-                    <th>@field</th>
+                    if (column.Value)
+                    {
+                        <th>@column.Key</th>
+                    }
                 }
                 </tr>
             </thead>
@@ -40,13 +44,20 @@ else
                 @foreach (var dialogue in dialogues)
                 {
                     <tr>
-                        @foreach (var field in availableFields)
-                        {
-                            if (selectedFields.TryGetValue(field, out var isVisible) && isVisible)
-                            {
-                                <td>@GetPropertyValue(dialogue, field)</td>
-                            }
-                        }
+                        @if (columnVisibility["Code"]) { <td>@dialogue.DCODE</td> }
+                        @if (columnVisibility["Macro Designation"]) { <td>@dialogue.DGMACRODESIGNATION</td> }
+                        @if (columnVisibility["Nature du Besoin"]) { <td>@dialogue.DGNATUREDUBESOIN</td> }
+                        @if (columnVisibility["Cadre d'achat"]) { <td>@dialogue.DGCADREDACHAT</td> }
+                        @if (columnVisibility["Fournisseur"]) { <td>@dialogue.DGFOURNISSEUR</td> }
+                        @if (columnVisibility["N° tiers"]) { <td>@dialogue.DGNTIERS</td> }
+                        @if (columnVisibility["Libellé du marché"]) { <td>@dialogue.DGLIBELLEDUMARCHE</td> }
+                        @if (columnVisibility["Masse budgétaire"]) { <td>@dialogue.DGMASSEBUDGETAIRE</td> }
+                        @if (columnVisibility["Demande d'achat"]) { <td>@dialogue.DGDA</td> }
+                        @if (columnVisibility["Axe national 1"]) { <td>@dialogue.DGAXENATIONAL1</td> }
+                        @if (columnVisibility["Grand projet"]) { <td>@dialogue.DGGRANDPROJET</td> }
+                        @if (columnVisibility["Date de Début"]) { <td>@dialogue.DGDATEDEDEBUT.ToShortDateString()</td> }
+                        @if (columnVisibility["Date de Fin"]) { <td>@dialogue.DGDATEDEFIN.ToShortDateString()</td> }
+                        @if (columnVisibility["Montant Commandé"]) { <td>@String.Format("{0:C}", dialogue.DGMONTANTCOMMANDE)</td> }
                     </tr>
                 }
             </tbody>
@@ -56,69 +67,33 @@ else
 
 @code {
     private List<Dialogue>? dialogues;
-    private List<string> availableFields = new List<string>
+    private Dictionary<string, bool> columnVisibility = new Dictionary<string, bool>
     {
-        "Code", "Macro Designation", "Nature du Besoin", "Cadre d'achat", "Fournisseur",
-        "N° tiers", "Libellé du marché", "Masse budgétaire", "Demande d'achat",
-        "Axe national 1", "Grand projet", "Date de Début", "Date de Fin", "Montant Commandé"
+        { "Code", true },
+        { "Macro Designation", true },
+        { "Nature du Besoin", true },
+        { "Cadre d'achat", true },
+        { "Fournisseur", true },
+        { "N° tiers", true },
+        { "Libellé du marché", true },
+        { "Masse budgétaire", true },
+        { "Demande d'achat", true },
+        { "Axe national 1", true },
+        { "Grand projet", true },
+        { "Date de Début", true },
+        { "Date de Fin", true },
+        { "Montant Commandé", true }
     };
-    private Dictionary<string, bool> selectedFields = new Dictionary<string, bool>();
-
-    private string NormalizePropertyName(string displayName)
-    {
-        return displayName.Replace(" ", "").Replace("é", "e");
-    }
-
-    #nullable enable
-    private string GetPropertyValue(Dialogue dialogue, string fieldName)
-    {
-        // Mapping display names to actual property names
-        var propertyNameMap = new Dictionary<string, string>
-        {
-            {"Code", "DCODE"},
-            {"Macro Designation", "DGMACRODESIGNATION"},
-            {"Nature du Besoin", "DGNATUREDUBESOIN"},
-            {"Cadre d'achat", "DGCADREDACHAT"},
-            {"Fournisseur", "DGFOURNISSEUR"},
-            {"N° tiers", "DGNTIERS"},
-            {"Libellé du marché", "DGLIBELLEDUMARCHE"},
-            {"Masse budgétaire", "DGMASSEBUDGETAIRE"},
-            {"Demande d'achat", "DGDA"},
-            {"Axe national 1", "DGAXENATIONAL1"},
-            {"Grand projet", "DGGRANDPROJET"},
-            {"Date de Début", "DGDATEDEDEBUT"},
-            {"Date de Fin", "DGDATEDEFIN"},
-            {"Montant Commandé", "DGMONTANTCOMMANDE"}
-        };
-
-        // Normalize and retrieve property name
-        if (propertyNameMap.TryGetValue(fieldName, out var actualPropertyName))
-        {
-            var property = typeof(Dialogue).GetProperty(actualPropertyName);
-            if (property != null)
-            {
-                var value = property.GetValue(dialogue, null);
-                return value?.ToString() ?? "Property is null";
-            }
-        }
-        return "Error in property name";
-    }
-    #nullable restore
-
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             dialogues = await DataService.GetAllDialoguesAsync();
-            availableFields.ForEach(field => selectedFields[field] = true);
         }
         catch (Exception ex)
         {
-            // Log the error or handle it accordingly
-            Console.Error.WriteLine("Failed to load data: " + ex.Message);
-            dialogues = new List<Dialogue>(); // Ensure the dialogues list is not null
+            Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
-
 }

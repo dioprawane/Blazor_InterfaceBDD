@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InterfaceBDD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a8350ffd77860be01fec14f0b7c631ed6b36564")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1bc764c902bb8610337d9dc4564f2b5edb86f771")]
 [assembly: System.Reflection.AssemblyProductAttribute("InterfaceBDD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InterfaceBDD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
