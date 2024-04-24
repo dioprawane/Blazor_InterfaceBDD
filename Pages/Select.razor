@@ -12,7 +12,11 @@
 
 <h1>Dialogues</h1>
 
-<p>Table DIALOGUE de la Base de données dialogue_gestion :</p>
+<h3>Table DIALOGUE de la Base de données dialogue_gestion :</h3>
+
+<label for="filter">Filtrer par série de données :</label>
+<input @bind="filterText" @bind:event="oninput" id="filter" class="form-control" placeholder="Entrez une série de données" />
+
 
 @if (dialogues == null)
 {
@@ -84,7 +88,7 @@ else
                 </tr>
             </thead>
             <tbody>
-                @foreach (var dialogue in dialogues)
+                @foreach (var dialogue in FilteredDialogues)
                 {
                     <tr>
                         <td>@dialogue.DCODE</td>
@@ -150,6 +154,8 @@ else
 
 @code {
     private List<Dialogue>? dialogues;
+    private List<Dialogue> FilteredDialogues => dialogues?.Where(d => FilterDialogue(d)).ToList() ?? new List<Dialogue>();
+    private string filterText = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -161,5 +167,9 @@ else
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
+    }
+    private bool FilterDialogue(Dialogue dialogue)
+    {
+        return string.IsNullOrEmpty(filterText) || dialogue.DGSERIEDEDONNEES.Contains(filterText, StringComparison.OrdinalIgnoreCase);
     }
 }

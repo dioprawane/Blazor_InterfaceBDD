@@ -1,0 +1,124 @@
+@page "/see"
+@inject DataService DataService
+@using InterfaceBDD.Models
+
+<PageTitle>Vue des Dialogues</PageTitle>
+
+<h1>Dialogues</h1>
+
+<h3>Table DIALOGUE de la Base de données dialogue_gestion :</h3>
+
+<div>
+    <h4>Sélectionnez les champs à afficher :</h4>
+    @foreach (var field in availableFields)
+    {
+        <input type="checkbox" @bind="selectedFields[field]">@field<br />
+    }
+</div>
+
+@if (dialogues == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (dialogues == null || !dialogues.Any())
+{
+    <p>No dialogue found.</p>
+}
+else
+{
+    <div class="scrollable-table">
+        <table class="table">
+            <thead>
+                <tr>
+                @foreach (var field in availableFields.Where(f => selectedFields[f]))
+                {
+                    <th>@field</th>
+                }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dialogue in dialogues)
+                {
+                    <tr>
+                        @foreach (var field in availableFields)
+                        {
+                            if (selectedFields.TryGetValue(field, out var isVisible) && isVisible)
+                            {
+                                <td>@GetPropertyValue(dialogue, field)</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<Dialogue>? dialogues;
+    private List<string> availableFields = new List<string>
+    {
+        "Code", "Macro Designation", "Nature du Besoin", "Cadre d'achat", "Fournisseur",
+        "N° tiers", "Libellé du marché", "Masse budgétaire", "Demande d'achat",
+        "Axe national 1", "Grand projet", "Date de Début", "Date de Fin", "Montant Commandé"
+    };
+    private Dictionary<string, bool> selectedFields = new Dictionary<string, bool>();
+
+    private string NormalizePropertyName(string displayName)
+    {
+        return displayName.Replace(" ", "").Replace("é", "e");
+    }
+
+    #nullable enable
+    private string GetPropertyValue(Dialogue dialogue, string fieldName)
+    {
+        // Mapping display names to actual property names
+        var propertyNameMap = new Dictionary<string, string>
+        {
+            {"Code", "DCODE"},
+            {"Macro Designation", "DGMACRODESIGNATION"},
+            {"Nature du Besoin", "DGNATUREDUBESOIN"},
+            {"Cadre d'achat", "DGCADREDACHAT"},
+            {"Fournisseur", "DGFOURNISSEUR"},
+            {"N° tiers", "DGNTIERS"},
+            {"Libellé du marché", "DGLIBELLEDUMARCHE"},
+            {"Masse budgétaire", "DGMASSEBUDGETAIRE"},
+            {"Demande d'achat", "DGDA"},
+            {"Axe national 1", "DGAXENATIONAL1"},
+            {"Grand projet", "DGGRANDPROJET"},
+            {"Date de Début", "DGDATEDEDEBUT"},
+            {"Date de Fin", "DGDATEDEFIN"},
+            {"Montant Commandé", "DGMONTANTCOMMANDE"}
+        };
+
+        // Normalize and retrieve property name
+        if (propertyNameMap.TryGetValue(fieldName, out var actualPropertyName))
+        {
+            var property = typeof(Dialogue).GetProperty(actualPropertyName);
+            if (property != null)
+            {
+                var value = property.GetValue(dialogue, null);
+                return value?.ToString() ?? "Property is null";
+            }
+        }
+        return "Error in property name";
+    }
+    #nullable restore
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            dialogues = await DataService.GetAllDialoguesAsync();
+            availableFields.ForEach(field => selectedFields[field] = true);
+        }
+        catch (Exception ex)
+        {
+            // Log the error or handle it accordingly
+            Console.Error.WriteLine("Failed to load data: " + ex.Message);
+            dialogues = new List<Dialogue>(); // Ensure the dialogues list is not null
+        }
+    }
+
+}

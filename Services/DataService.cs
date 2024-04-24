@@ -20,4 +20,5 @@ public class DataService
         _logger.LogInformation($"Loaded {dialogues.Count} dialogues."); // Loggez le nombre de dialogues chargés
         return dialogues;
     }
+
 }
