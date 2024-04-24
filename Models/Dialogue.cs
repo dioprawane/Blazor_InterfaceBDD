@@ -6,58 +6,59 @@ namespace InterfaceBDD.Models
     public class Dialogue
     {
         [Key]
-        public int DCode { get; set; }
-        public int DGCode { get; set; }
-        public string DGMacroDesignation { get; set; } = string.Empty;
-        public string DGNatureDuBesoin { get; set; } = string.Empty;
-        public string DGCadreDachat { get; set; } = string.Empty;
-        public string DGFournisseur { get; set; } = string.Empty;
-        public int DGNTiers { get; set; }
-        public string DGLibelleDuMarche { get; set; } = string.Empty;
-        public string DGMasseBudgetaire { get; set; } = string.Empty;
+        public int DCODE { get; set; }
+        public int DGCODE { get; set; }
+        public string DGMACRODESIGNATION { get; set; } = string.Empty;
+        public string DGNATUREDUBESOIN { get; set; } = string.Empty;
+        public string DGCADREDACHAT { get; set; } = string.Empty;
+        public string DGFOURNISSEUR { get; set; } = string.Empty;
+        public int DGNTIERS { get; set; }
+        public string DGLIBELLEDUMARCHE { get; set; } = string.Empty;
+        public string DGMASSEBUDGETAIRE { get; set; } = string.Empty;
         public string DGDA { get; set; } = string.Empty;
-        public string DGaxeNational1 { get; set; } = string.Empty;
-        public string DGGrandProjet { get; set; } = string.Empty;
-        public string DGNomProjet { get; set; } = string.Empty;
-        public string DGStatutProjetG2PI { get; set; } = string.Empty;
-        public string DGCodeInitiativesDSI { get; set; } = string.Empty;
-        public string DGObjectInitiative { get; set; } = string.Empty;
-        public string DGComptesBudgetaires { get; set; } = string.Empty;
-        public string DGComptesComptables { get; set; } = string.Empty;
-        public string DGPortefeuille { get; set; } = string.Empty;
-        public string DGSousPortefeuille { get; set; } = string.Empty;
-        public string DGCaracteristiqueDuBesoin { get; set; } = string.Empty;
-        public string DGCriticite { get; set; } = string.Empty;
-        public decimal DGBudgetInitialDemande { get; set; }
-        public decimal DGBudgetDG1Demande { get; set; }
-        public decimal DGBudgetDG2Demande { get; set; }
-        public decimal DGBudgetDG3Demande { get; set; }
-        public decimal DGBudgetDG4Demande { get; set; }
-        public decimal DGPlanBudgBiJanvier { get; set; } = 0;
-        public decimal DGPlanBudgBr1Juillet { get; set; } = 0;
-        public decimal DGPlanBudgBr2Novembre { get; set; } = 0;
-        public string DGNumeroAB { get; set; } = string.Empty;
-        public string DGNumeroDB { get; set; } = string.Empty;
-        public decimal DGBIAutorise { get; set; }
-        public decimal DGBR1Autorise { get; set; }
-        public decimal DGBR2Autorise { get; set; }
-        public string DGNCommande { get; set; } = string.Empty;
-        public DateTime DGDateDeDebut { get; set; }
-        public DateTime DGDateDeFin { get; set; }
-        public decimal DGMontantCommande { get; set; }
-        public decimal DGNEngagement { get; set; }
-        public decimal DGMontantEngage { get; set; }
-        public decimal DGRealise { get; set; }
-        public string DGGA486AnneeN1 { get; set; } = string.Empty;
-        public string DGGA486AnneeN2 { get; set; } = string.Empty;
-        public string DGGA486AnneeN3 { get; set; } = string.Empty;
-        public string DGGA486AnneeN4 { get; set; } = string.Empty;
-        public decimal DGBudgPrevN1 { get; set; }
-        public decimal DGBudgPrevN2 { get; set; }
-        public decimal DGBudgPrevN3 { get; set; }
-        public decimal DGBudgPrevN4 { get; set; }
-        public string DGCommentaires { get; set; } = string.Empty;
-        public int DGAnnee { get; set; }
-        public string DGDialogue { get; set; } = string.Empty;
+        public string DGAXENATIONAL1 { get; set; } = string.Empty;
+        public string DGGRANDPROJET { get; set; } = string.Empty;
+        public string DGNOMPROJET { get; set; } = string.Empty;
+        public string DGSTATUTPROJETG2PI { get; set; } = string.Empty;
+        public string DGCODEINITIATIVESDSI { get; set; } = string.Empty;
+        public string DGOBJECTINITIATIVE { get; set; } = string.Empty;
+        public decimal DGCOMPTESBUDGETAIRES { get; set; } = 0;
+        public decimal DGCOMPTESCOMPTABLES { get; set; } = 0;
+        public string DGPORTEFEUILLE { get; set; } = string.Empty;
+        public string DGSOUSPORTEFEUILLE { get; set; } = string.Empty;
+        public string DGCARACTERISTIQUEDUBESOIN { get; set; } = string.Empty;
+        public string DGCRITICITE { get; set; } = string.Empty;
+        public decimal DGBUDGETINITIALDEMANDE { get; set; }
+        public decimal DGBUDGETDG1DEMANDE { get; set; }
+        public decimal DGBUDGETDG2DEMANDE { get; set; }
+        public decimal DGBUDGETDG3DEMANDE { get; set; }
+        public decimal DGBUDGETDG4DEMANDE { get; set; }
+        public string DGDEMANDEDEREPORTIDENTIFIE { get; set; } = string.Empty;
+        public decimal DGPLANBUDGBIJANVIER { get; set; } = 0;
+        public decimal DGPLANBUDGBR1JUILLET { get; set; } = 0;
+        public decimal DGPLANBUDGBR2NOVEMBRE { get; set; } = 0;
+        public string DGNUMEROAB { get; set; } = string.Empty;
+        public string DGNUMERODB { get; set; } = string.Empty;
+        public decimal DGBIAUTORISE { get; set; }
+        public decimal DGBR1AUTORISE { get; set; }
+        public decimal DGBR2AUTORISE { get; set; }
+        public string DGNCOMMANDE { get; set; } = string.Empty;
+        public DateTime DGDATEDEDEBUT  { get; set; }
+        public DateTime DGDATEDEFIN { get; set; }
+        public decimal DGMONTANTCOMMANDE { get; set; }
+        public string DGNENGAGEMENT { get; set; } = string.Empty;
+        public decimal DGMONTANTENGAGE { get; set; }
+        public decimal DGREALISE { get; set; }
+        public string DGGA486ANNEEN1 { get; set; } = string.Empty;
+        public string DGGA486ANNEEN2 { get; set; } = string.Empty;
+        public string DGGA486ANNEEN3 { get; set; } = string.Empty;
+        public string DGGA486ANNEEN4 { get; set; } = string.Empty;
+        public decimal DGBUDGPREVN1 { get; set; }
+        public decimal DGBUDGPREVN2 { get; set; }
+        public decimal DGBUDGPREVN3 { get; set; }
+        public decimal DGBUDGPREVN4 { get; set; }
+        public string DGCOMMENTAIRES { get; set; } = string.Empty;
+        public int DGANNEE { get; set; }
+        public string DGSERIEDEDONNEES { get; set; } = string.Empty;
     }
 }
